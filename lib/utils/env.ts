@@ -13,7 +13,7 @@ export function env(): any {
 
         }
     } else if (os.type() == 'Windows_NT') {
-        env.PATH =  `${ROOT}/bin;${env.PATH}`;
+        env.Path =  `${ROOT}/bin;${env.Path}`;
     }
 
     return env;

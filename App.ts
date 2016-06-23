@@ -8,11 +8,12 @@ import * as std from "./lib/utils/std";
 import * as atom from "./lib/utils/atom";
 import OpenDialogOptions = Electron.OpenDialogOptions;
 import {Scenario} from "./lib/Scenario";
+import * as protractor from "./lib/utils/protractor";
 
 
 class App {
     static app: App;
-    protected win: Electron.BrowserWindow = new BrowserWindow({width: 900, height: 600});
+    protected win: Electron.BrowserWindow = new BrowserWindow({width: 900, height: 600, minWidth: 900, minHeight: 600});
     private Menu: MenuBuilder;
     private project: Project;
 
@@ -48,6 +49,8 @@ class App {
      */
     private onReady(){
         baseUrl.send();
+
+        //protractor.install();
     }
 
     /**
