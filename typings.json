@@ -1,0 +1,10 @@
+{
+  "ambientDependencies": {
+    "bluebird": "github:DefinitelyTyped/DefinitelyTyped/bluebird/bluebird.d.ts#149aa09a23582fb6aac6f5e2518ce19b1efe25b8",
+    "github-electron": "github:DefinitelyTyped/DefinitelyTyped/github-electron/github-electron.d.ts#42ceed2dbecdf5282462ab209690ae36c9514c15",
+    "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#6abf99dda133ff859e16e3520b0b00b6b1239341"
+  },
+  "dependencies": {
+    "lodash": "registry:npm/lodash#4.0.0+20160416211519"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "name": "e2e-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "App.js",
+  "scripts": {
+    "tsc": "grunt ts",
+    "tsc:w": "tsc -w",
+    "typings": "typings install",
+    "start": "grunt ts && electron .",
+    "test": "grunt test",
+    "package": "grunt ts && electron-packager ./ Protractor --all --out ./dist/ --version 1.2.2 --overwrite --asar=false"
+  },
+  "author": "ROMAIN LENZOTTI",
+  "license": "ISC",
+  "dependencies": {
+    "jasmine-core": "^2.3.4",
+    "load-grunt-tasks": "^3.1.0",
+    "protractor": "^3.3.0",
+    "typescript": "^1.8.9",
+    "typings": "^1.1.0"
+  },
+  "devDependencies": {
+    "time-grunt": "^1.0.0",
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-ts": "^5.5.1",
+    "source-map-support": "^0.4.0",
+    "electron-packager": "^7.0.4",
+    "electron-prebuilt": "^1.2.2"
+  },
+  "jspm": {
+    "directories": {
+      "baseURL": "browser"
+    },
+    "dependencies": {
+      "material-ui": "npm:material-ui@^0.15.0",
+      "react": "npm:react@^15.1.0",
+      "react-dom": "npm:react-dom@^15.1.0",
+      "react-tap-event-plugin": "npm:react-tap-event-plugin@^1.0.0",
+      "systemjs": "npm:systemjs@^0.19.31"
+    },
+    "devDependencies": {}
+  }
+}

@@ -1,0 +1,12 @@
+{
+    "directConnect": true,
+    "capabilities": {
+        "browserName": "chrome"
+    },
+
+    "framework": "jasmine",
+
+    "jasmineNodeOpts": {
+        "defaultTimeoutInterval": 30000
+    }
+}
