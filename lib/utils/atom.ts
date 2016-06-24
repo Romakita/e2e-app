@@ -1,7 +1,7 @@
 import * as Promise from "bluebird";
-import {ChildProcess, spawn} from "child_process";
+import {ChildProcess} from "child_process";
 import * as std from "./std";
-import {env} from "./env";
+import {spawn} from "./spawn";
 
 export function open(path: string): Promise<any> {
 
@@ -9,10 +9,7 @@ export function open(path: string): Promise<any> {
 
         std.log('[EDIT] open atom');
 
-        let childProcess: ChildProcess = spawn('atom', [path], {
-            cwd: path,
-            env: env()
-        });
+        let childProcess: ChildProcess = spawn('atom', [path], path);
 
         childProcess.on('error', resolve);
 

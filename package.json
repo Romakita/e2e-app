@@ -9,7 +9,9 @@
     "typings": "typings install",
     "start": "grunt ts && electron .",
     "test": "grunt test",
-    "package": "grunt ts && electron-packager ./ Protractor --all --ignore=\"node_modules/(dev-dependecy|grunt-*)\" --prune --out ./dist/ --version 1.2.2 --overwrite --asar=false"
+    "build:winx64": "grunt ts && electron-packager ./ Protractor --platform=win32 --arch=x64 --out ./dist/ --version 1.2.2 --overwrite --asar=false",
+    "build:all": "grunt ts && electron-packager ./ Protractor --all --out ./dist/ --version 1.2.2 --overwrite --asar=false",
+    "webdriver": "node ./node_modules/protractor/bin/webdriver-manager update"
   },
   "author": "ROMAIN LENZOTTI",
   "license": "ISC",
@@ -18,7 +20,6 @@
     "load-grunt-tasks": "^3.1.0",
     "protractor": "^3.3.0",
     "typescript": "^1.8.9",
-    "source-map-support": "^0.4.0",
     "typings": "^1.1.0"
   },
   "devDependencies": {
@@ -26,6 +27,7 @@
     "grunt": "^1.0.1",
     "grunt-cli": "^1.2.0",
     "grunt-ts": "^5.5.1",
+    "source-map-support": "^0.4.0",
     "electron-packager": "^7.0.4",
     "electron-prebuilt": "^1.2.2"
   },

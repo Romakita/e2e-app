@@ -1,9 +1,38 @@
-import {spawn} from "child_process";
+import {spawn} from "./spawn";
 import {ChildProcess} from "child_process";
-import {PROTRACTOR, sanitize, ROOT} from "./path";
+import {PROTRACTOR, sanitize, ROOT, PROTRACTOR_INSTALL} from "./path";
 import * as std from "./std";
 import * as Promise from "bluebird";
 import * as Fs from "fs";
+
+export function install(){
+    return new Promise<any>((resolve: Function, reject: Function) => {
+        const chromeDriver = `${ROOT}\node_modules\protractor\selenium\chromedriver_2.21.exe`;
+
+        if(!Fs.existsSync(chromeDriver)){
+
+            let childProcess: ChildProcess = spawn("node", [PROTRACTOR_INSTALL, "update"]);
+
+            childProcess.stdout.on("data", (data) => {
+                std.log(data.toString());
+            });
+
+            childProcess.stderr.on("data", (data) => {
+                std.error('[INSTALL] '+data.toString());
+            });
+
+            childProcess.on("error", (data) => {
+                std.error('[INSTALL] '+data.toString());
+            });
+
+            childProcess.on('close', resolve);
+
+        } else {
+            resolve();
+        }
+    });
+
+}
 
 export function writeConfig(path, options: any){
 
@@ -22,20 +51,24 @@ export function writeConfig(path, options: any){
             }
 
         });
-    })
+    });
 }
 
 export function protractor(protractorFile: string){
 
     return new Promise((resolve, reject) => {
 
-        let childProcess: ChildProcess = spawn(PROTRACTOR, [protractorFile]);
+        let childProcess: ChildProcess = spawn("node", [PROTRACTOR, protractorFile]);
 
         childProcess.stdout.on("data", (data) => {
             std.log(data.toString());
         });
 
         childProcess.stderr.on("data", (data) => {
+            std.error(data.toString());
+        });
+
+        childProcess.on("error", (data) => {
             std.error(data.toString());
         });
 

@@ -35,6 +35,12 @@ export class MenuBuilder {
                         }
                     }
                 ]
+            },
+            {
+                label: "Edit",
+                submenu: [
+                    { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" }
+                ]
             }
         ];
 

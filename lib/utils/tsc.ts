@@ -1,8 +1,8 @@
 import * as Promise from "bluebird";
-import {ChildProcess, spawn} from "child_process";
 import * as std from "./std";
-import {env} from "./env";
+import {spawn} from "./spawn";
 import {TSC} from "./path";
+import {ChildProcess} from "child_process";
 
 export default function compile(path: string): Promise<any> {
 
@@ -10,10 +10,7 @@ export default function compile(path: string): Promise<any> {
 
         std.log('[TSC] compile => ' + path);
 
-            let childProcess: ChildProcess = spawn(TSC, [], {
-                cwd: path,
-                env: env()
-            });
+            let childProcess: ChildProcess = spawn('tsc', [], path);
 
             childProcess.stdout.on('data', (data: Buffer) => {
                 std.log('[TSC] ' + data.toString());

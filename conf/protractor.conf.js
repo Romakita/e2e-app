@@ -1,1 +1,1 @@
-exports.config = {"baseUrl":"http://google.fr","specs":["/Users/romakita/WebstormProjects/scenarios/scenario-one-borrower.js"],"directConnect":true,"capabilities":{"browserName":"chrome"},"framework":"jasmine","jasmineNodeOpts":{"defaultTimeoutInterval":30000}}
+exports.config = {"baseUrl":"http://localhost:8090/emprunteur/","specs":["C:/wksp/d3-emprunteur/d3-emprunteur-web/src/main/test/e2e/scenario-one-borrower.js"],"directConnect":true,"capabilities":{"browserName":"chrome"},"framework":"jasmine","jasmineNodeOpts":{"defaultTimeoutInterval":30000}}
