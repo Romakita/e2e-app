@@ -123,6 +123,7 @@ class App {
 
         if(this.project) {
             if(this.project.directory == directory) {
+                std.send('scenarios', this.project.scenarios.map(item => (item.label)));
                 return;
             }
         }

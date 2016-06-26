@@ -27,9 +27,7 @@ export class MenuBuilder {
                 submenu: [
                     {
                         label: 'Open project',
-                        role: 'open',
-                        type: 'normal',
-
+                        accelerator: "CmdOrCtrl+O",
                         click: () => {
                             options.onClickOpen();
                         }
@@ -51,7 +49,6 @@ export class MenuBuilder {
                 submenu: [
                     {
                         label: 'Run all',
-                        role: 'open',
                         click: () => {
                             options.onClickRun(-1);
                         }
@@ -66,13 +63,12 @@ export class MenuBuilder {
 
                 let submenu = {
                     label: `run ${scenario}`,
-                    role: '',
                     click: () => {
                         options.onClickRun(index);
                     }
                 };
 
-                runTemplate.submenu.push(submenu);
+                runTemplate.submenu.push(<any>submenu);
             });
 
             template.push(<any>runTemplate);

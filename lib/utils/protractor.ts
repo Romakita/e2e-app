@@ -40,7 +40,13 @@ export function writeConfig(path, options: any){
 
         const protractorConf = Object.assign(options, require(`${ROOT}/conf/.protractor.json`));
 
-        const pcStr: string = sanitize(JSON.stringify(protractorConf));
+        let pcStr: string = sanitize(JSON.stringify(protractorConf));
+
+        pcStr = pcStr.replace(/}}$/, `, print: function() {}}, onPrepare: function() {
+      var SpecReporter = require('jasmine-spec-reporter');
+      // add jasmine spec reporter
+      jasmine.getEnv().addReporter(new SpecReporter({displayStacktrace: 'all'}));
+   }}`);
 
         Fs.writeFile(path, `exports.config = ${pcStr}`, {encoding: "utf8"}, (err: NodeJS.ErrnoException) => {
 

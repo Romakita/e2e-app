@@ -1,7 +1,7 @@
 ///<reference path="View.d.ts"/>
 
 import * as React from 'react';
-import ProtractorConsole from './../ProtractorConsole/ProtractorConsole';
+import ConsoleView from './../ConsoleView/ConsoleView';
 import Toolbar from './../Toolbar/Toolbar';
 import * as ipcEvents from "../services/ipcEvents";
 
@@ -16,8 +16,11 @@ export default class View extends React.Component<any, {}> {
             scenarios: []
         }
     };
-
-    private style ={
+    /**
+     *
+     * @type {{console: {position: string, top: string, left: string, bottom: string, right: string}}}
+     */
+    private style = {
         console: {
             position: "absolute",
             top: '56px',
@@ -94,7 +97,8 @@ export default class View extends React.Component<any, {}> {
 
         this.setState({
             toolbar:{
-                scenarios: scenarios
+                scenarios: scenarios,
+                baseUrl: this.state.toolbar.baseUrl
             },
             console: {
                 stderr: undefined,
@@ -143,10 +147,16 @@ export default class View extends React.Component<any, {}> {
         electron.ipcRenderer.send("baseUrl", baseUrl);
     };
 
+    /**
+     *
+     */
     onTouchTapClear = () => {
         this.setState({console:{stdout: "clear"}});
     };
 
+    /**
+     *
+     */
     onTouchTapEdit = () => {
         require('electron').ipcRenderer.send('edit');
     };
@@ -158,11 +168,9 @@ export default class View extends React.Component<any, {}> {
      */
     public render(){
 
-        let stdout = this.state.console.stdout;
-        let stderr = this.state.console.stderr;
-
         return (
             <div>
+                
                 <Toolbar
                     baseUrl={this.state.toolbar.baseUrl}
                     onTouchTapOpenFolder={this.onTouchTapOpenFolder}
@@ -172,8 +180,9 @@ export default class View extends React.Component<any, {}> {
                     onBaseUrlChange={this.onBaseUrlChange}
                     scenarios={this.state.toolbar.scenarios}
                 />
+
                 <div style={this.style.console} >
-                    <ProtractorConsole stdout={stdout} stderr={stderr} />
+                    <ConsoleView stdout={this.state.console.stdout} stderr={this.state.console.stderr} />
                 </div>
             </div>
         );

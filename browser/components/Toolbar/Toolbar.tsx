@@ -4,10 +4,10 @@ import * as React from 'react';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import FileFolderOpen from 'material-ui/svg-icons/file/folder-open';
 import AvPlayArrow from 'material-ui/svg-icons/av/play-arrow';
+import ActionDelete from 'material-ui/svg-icons/action/delete';
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 import {Toolbar as UIToolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 
@@ -44,6 +44,11 @@ export default class Toolbar extends React.Component<IToolbarProps, {}> {
             marginRight: '0px'
         },
         edit: {
+            minWidth: '40px',
+            marginLeft: '10px',
+            marginRight: '10px'
+        },
+        delete: {
             minWidth: '40px',
             marginLeft: '10px',
             marginRight: '10px'
@@ -132,9 +137,9 @@ export default class Toolbar extends React.Component<IToolbarProps, {}> {
 
                     <ToolbarSeparator style={{marginLeft:'5px'}} />
 
-                    <RaisedButton onTouchTap={this.props.onTouchTapClear}
-                                  label="Clear"
-                                  primary={true} />
+                    <FlatButton onTouchTap={this.props.onTouchTapClear}
+                                style={this.style.delete}
+                                icon={<ActionDelete />} />
                 </ToolbarGroup>
 
             );
