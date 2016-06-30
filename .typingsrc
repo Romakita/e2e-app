@@ -1,0 +1,2 @@
+proxy=http://DICID:PASS@ehttp1:80
+https-proxy=http://DICID:PASS@ehttp1:80

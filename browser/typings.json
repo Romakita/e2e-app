@@ -4,6 +4,7 @@
     "material-ui": "github:DefinitelyTyped/DefinitelyTyped/material-ui/material-ui.d.ts#4124d66bae51c7c1b096f2b0a55b736af7c2d0bf",
     "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#6abf99dda133ff859e16e3520b0b00b6b1239341",
     "react": "github:DefinitelyTyped/DefinitelyTyped/react/react.d.ts#e3df7a21b96cb3a5afc3d0e128c68c66b84af89c",
-    "react-dom": "github:DefinitelyTyped/DefinitelyTyped/react/react-dom.d.ts#b9642fb8ac07f7164dc643ddd1fa99b58ae9be8b"
+    "react-dom": "github:DefinitelyTyped/DefinitelyTyped/react/react-dom.d.ts#b9642fb8ac07f7164dc643ddd1fa99b58ae9be8b",
+    "react-tap-event-plugin": "github:DefinitelyTyped/DefinitelyTyped/react-tap-event-plugin/react-tap-event-plugin.d.ts#d9b6b8e455e1ee3371a04a24d6490e1771e45b6b"
   }
 }
