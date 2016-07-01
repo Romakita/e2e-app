@@ -7,14 +7,11 @@ import * as ipcEvents from "../services/ipcEvents";
 
 export default class View extends React.Component<any, {}> {
     public state : IViewState =  {
-        console:{
-            stdout: undefined,
-            stderr: undefined
-        },
-        toolbar: {
-            baseUrl: "",
-            scenarios: []
-        }
+        stdout: undefined,
+        stderr: undefined,
+        baseUrl: '',
+        scenarios: [],
+        currentScenario: -1
     };
     /**
      *
@@ -33,6 +30,110 @@ export default class View extends React.Component<any, {}> {
 
     constructor(props: any){
         super(props);
+    }
+
+    /**
+     *
+     * @param data
+     */
+    private onData(data: any){
+        console.log('Data', data);
+
+        this.setState({stdout: data, stderr: undefined});
+    }
+
+    /**
+     *
+     * @param data
+     */
+    private onError(data: any){
+        this.setState({stderr: data, stdout: undefined});
+    }
+
+    /**
+     *
+     * @param url
+     */
+    private onGetBaseUrl(url: string){
+        this.setState({
+            baseUrl: url,
+            stderr: undefined,
+            stdout: undefined
+        });
+    }
+
+    /**
+     *
+     * @param scenarios
+     */
+    private onGetScenarios(scenarios: string[]){
+
+        console.log('Scenarios', scenarios);
+
+        this.setState({
+            scenarios: scenarios,
+            stderr: undefined,
+            stdout: undefined
+        });
+    }
+
+    /**
+     *
+     */
+    onTouchTapOpenFolder = () => {
+        let electron = require('electron');
+
+        electron.ipcRenderer.send("open");
+    };
+
+    /**
+     *
+     * @param scenario
+     */
+    onTouchTapRun = () => {
+        let electron = require('electron');
+
+        electron.ipcRenderer.send("run", this.state.currentScenario);
+    };
+
+    /**
+     *
+     * @param baseUrl
+     */
+    onBaseUrlChange = (baseUrl: string) => {
+        let electron = require('electron');
+
+        this.setState({baseUrl: baseUrl});
+
+        electron.ipcRenderer.send("baseUrl", baseUrl);
+    };
+
+    /**
+     *
+     */
+    onTouchTapClear = () => {
+        this.setState({stdout: "clear"});
+    };
+
+    /**
+     *
+     */
+    onTouchTapEdit = () => {
+        require('electron').ipcRenderer.send('edit');
+    };
+
+    /**
+     *
+     * @param scenario
+     */
+    onCurrentScenarioChange = (scenario: number) => {
+        this.setState({currentScenario: scenario});
+    };
+
+    /**
+     *
+     */
+    componentDidMount(): void {
 
         ipcEvents.on('stdout', (data) => {
             this.onData(data);
@@ -55,134 +156,30 @@ export default class View extends React.Component<any, {}> {
 
     /**
      *
-     * @param data
-     */
-    private onData(data: any){
-        console.log('Data', data);
-
-        this.setState({console:{stdout: data, stderr: undefined}});
-    }
-
-    /**
-     *
-     * @param data
-     */
-    private onError(data: any){
-        this.setState({console:{stderr: data, stdout: undefined}});
-    }
-
-    /**
-     *
-     * @param url
-     */
-    private onGetBaseUrl(url: string){
-        this.setState({
-            toolbar:{
-                baseUrl: url
-            },
-            console: {
-                stderr: undefined,
-                stdout: undefined
-            }
-        });
-    }
-
-    /**
-     *
-     * @param scenarios
-     */
-    private onGetScenarios(scenarios: string[]){
-
-        console.log('Scenarios', scenarios);
-
-        this.setState({
-            toolbar:{
-                scenarios: scenarios,
-                baseUrl: this.state.toolbar.baseUrl
-            },
-            console: {
-                stderr: undefined,
-                stdout: undefined
-            }
-        });
-    }
-
-    /**
-     *
-     * @param state
-     * @param callback
-     */
-    public setState(state:{}, callback?:()=>any): void {
-        super.setState(Object.assign(this.state, state), callback);
-    }
-
-    /**
-     *
-     */
-    onTouchTapOpenFolder = () => {
-        let electron = require('electron');
-
-        electron.ipcRenderer.send("open");
-    };
-
-    /**
-     *
-     * @param scenario
-     */
-    onTouchTapRun = (scenario: number) => {
-        let electron = require('electron');
-
-        electron.ipcRenderer.send("run", scenario);
-    };
-
-    /**
-     *
-     * @param baseUrl
-     */
-    onBaseUrlChange = (baseUrl: string) => {
-        let electron = require('electron');
-
-        console.log('BaseUrl', baseUrl);
-
-        electron.ipcRenderer.send("baseUrl", baseUrl);
-    };
-
-    /**
-     *
-     */
-    onTouchTapClear = () => {
-        this.setState({console:{stdout: "clear"}});
-    };
-
-    /**
-     *
-     */
-    onTouchTapEdit = () => {
-        require('electron').ipcRenderer.send('edit');
-    };
-
-
-    /**
-     *
      * @returns {any}
      */
     public render(){
 
         return (
             <div>
-                
+
                 <Toolbar
-                    baseUrl={this.state.toolbar.baseUrl}
+                    baseUrl={this.state.baseUrl}
+                    scenarios={this.state.scenarios}
+                    currentScenario={this.state.currentScenario}
                     onTouchTapOpenFolder={this.onTouchTapOpenFolder}
                     onTouchTapRun={this.onTouchTapRun}
                     onTouchTapEdit={this.onTouchTapEdit}
                     onTouchTapClear={this.onTouchTapClear}
                     onBaseUrlChange={this.onBaseUrlChange}
-                    scenarios={this.state.toolbar.scenarios}
+                    onCurrentScenarioChange={this.onCurrentScenarioChange}
                 />
 
-                <div style={this.style.console} >
-                    <ConsoleView stdout={this.state.console.stdout} stderr={this.state.console.stderr} />
+                <div style={this.style.console}>
+                    <ConsoleView
+                        stdout={this.state.stdout}
+                        stderr={this.state.stderr}
+                    />
                 </div>
             </div>
         );

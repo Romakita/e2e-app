@@ -1,15 +1,11 @@
 declare interface IToolbarProps {
     baseUrl: string;
+    currentScenario: number;
     onTouchTapOpenFolder: Function;
-    onTouchTapRun: (scenario: number) => void;
+    onTouchTapRun: () => void;
     onTouchTapClear: () => void;
     onTouchTapEdit: () => void;
+    onCurrentScenarioChange: (scenario: number) => void;
     onBaseUrlChange: (baseUrl: string) => void;
-    scenarios: string[];
-}
-
-declare interface IToolbarState {
-    baseUrl: string;
-    currentScenario: number;
     scenarios: string[];
 }

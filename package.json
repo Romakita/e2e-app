@@ -10,7 +10,7 @@
     "start": "grunt ts && electron .",
     "test": "grunt test",
     "clean": "rm -rf ./dist",
-    "build:winx64": "npm run clean && grunt ts && electron-packager ./ Protractor --platform=win32 --arch=x64 --out ./dist/ --version 1.2.2 --overwrite --asar=false --prune --exclude='node_module/(grunt-*)'",
+    "build:winx64": "npm run clean && grunt ts && electron-packager ./ Protractor --platform=win32 --arch=x64 --out ./dist/ --version 1.2.2 --overwrite --asar=false --prune --exclude=\"node_module/(grunt-*)\"",
     "optimize:winx64": "cd ./dist/Protractor-win32-x64/resources/app/ && npm prune --production",
     "build:mac": "npm run clean && grunt ts && electron-packager ./ Protractor --platform=darwin --arch=x64 --out ./dist/ --version 1.2.2 --overwrite --asar=false --prune",
     "build:all": "grunt ts && electron-packager ./ Protractor --all --out ./dist/ --version 1.2.2 --overwrite --asar=false",

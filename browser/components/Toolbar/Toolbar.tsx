@@ -13,12 +13,6 @@ import {Toolbar as UIToolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from
 
 export default class Toolbar extends React.Component<IToolbarProps, {}> {
 
-    public state: IToolbarState = {
-        baseUrl: "",
-        currentScenario: -1,
-        scenarios: []
-    };
-
     public style = {
         open: {
             minWidth: '40px',
@@ -58,8 +52,6 @@ export default class Toolbar extends React.Component<IToolbarProps, {}> {
 
     constructor(props) {
         super(props);
-        this.state.scenarios = props.scenarios;
-        this.state.baseUrl = props.baseUrl;
     }
 
     /**
@@ -73,32 +65,23 @@ export default class Toolbar extends React.Component<IToolbarProps, {}> {
      * 
      */
     onTouchTapRun = () => {
-        this.props.onTouchTapRun(this.state.currentScenario);
+        this.props.onTouchTapRun();
     };
 
     /**
      *
      */
     onChangeBaseUrl = (event) => {
-
-        this.setState({
-            baseUrl: event.target.value
-        });
-
         this.props.onBaseUrlChange(event.target.value);
     };
     /**
      *
      */
     onChangeScenario = (event, index, value) => {
-        this.setState({
-            currentScenario: value
-        });
-    };
 
-    setState(state:{}, callback?:()=>any):void {
-        super.setState(Object.assign(this.state, state), callback);
-    }
+        this.props.onCurrentScenarioChange(value);
+
+    };
 
     /**
      *
@@ -106,9 +89,9 @@ export default class Toolbar extends React.Component<IToolbarProps, {}> {
      */
     public buildScenarios() {
 
-        if (this.state.scenarios && this.state.scenarios.length) {
+        if (this.props.scenarios && this.props.scenarios.length) {
 
-            let scenarios = this.state.scenarios.map((scenario: string, index: number) => {
+            let scenarios = this.props.scenarios.map((scenario: string, index: number) => {
                 return <MenuItem value={index} key={index} primaryText={scenario} />
             });
 
@@ -116,7 +99,7 @@ export default class Toolbar extends React.Component<IToolbarProps, {}> {
                 <ToolbarGroup lastChild={true}>
                     <SelectField style={this.style.scenarios}
                                  iconStyle={this.style.scenariosIcon}
-                                 value={this.state.currentScenario}
+                                 value={this.props.currentScenario}
                                  onChange={this.onChangeScenario}>
                         <MenuItem value={-1} key={-1} primaryText="All scenarios" />
                         {scenarios}
@@ -150,20 +133,6 @@ export default class Toolbar extends React.Component<IToolbarProps, {}> {
 
     /**
      *
-     * @param nextProps
-     */
-    public componentWillReceiveProps(nextProps : IToolbarProps) {
-
-        const state = {
-            baseUrl: nextProps.baseUrl || this.state.baseUrl,
-            scenarios: nextProps.scenarios || this.state.scenarios
-        };
-
-        this.setState(state);
-
-    }
-    /**
-     *
      * @returns {any}
      */
     public render(){
@@ -181,7 +150,7 @@ export default class Toolbar extends React.Component<IToolbarProps, {}> {
                     <TextField
                         style={this.style.baseUrl}
                         hintText="http://"
-                        value={this.state.baseUrl}
+                        value={this.props.baseUrl}
                         onChange={this.onChangeBaseUrl}
                     />
 

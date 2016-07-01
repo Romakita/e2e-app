@@ -1,13 +1,7 @@
 declare interface IViewState {
-    
-    console: {
-        stdout: string;
-        stderr: string;
-    },
-
-    toolbar:{
-        baseUrl: string;
-        scenarios: string[];
-    }
-
+    stdout: string;
+    stderr: string;
+    baseUrl: string;
+    scenarios: string[];
+    currentScenario: number;
 }
