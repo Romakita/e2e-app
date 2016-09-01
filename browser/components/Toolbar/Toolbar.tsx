@@ -21,11 +21,12 @@ export default class Toolbar extends React.Component<IToolbarProps, {}> {
         },
         baseUrl: {
             marginTop:"5px",
-            width: "300px",
+            width: "360px",
             marginRight: "10px"
         },
         scenarios: {
-            marginTop:"5px"
+            marginTop:"5px",
+            width: "350px"
         },
 
         scenariosIcon: {
@@ -92,7 +93,7 @@ export default class Toolbar extends React.Component<IToolbarProps, {}> {
         if (this.props.scenarios && this.props.scenarios.length) {
 
             let scenarios = this.props.scenarios.map((scenario: string, index: number) => {
-                return <MenuItem value={index} key={index} primaryText={scenario} />
+                return <MenuItem value={index} key={index} primaryText={scenario.replace('scenario-', '')} />
             });
 
             return (

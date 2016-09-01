@@ -13,7 +13,7 @@ import * as protractor from "./lib/utils/protractor";
 
 class App {
     static app: App;
-    protected win: Electron.BrowserWindow = new BrowserWindow({width: 900, height: 600, minWidth: 900, minHeight: 600});
+    protected win: Electron.BrowserWindow = new BrowserWindow({width: 1024, height: 600, minWidth: 1024, minHeight: 600});
     private Menu: MenuBuilder;
     private project: Project;
 
